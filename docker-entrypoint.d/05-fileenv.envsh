@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Read FILEVALUE file content to env
+a=`env | grep '^X_FILEENV_\w\+=.\+$'` || `echo ''`
+for i in $a
+do
+    e=`echo $i | sed 's|^X_FILEENV_\(\w\+\)=\(.\+\)$|\1=\2|'`
+    n=`echo $e | sed 's|^\(\w\+\)=.\+$|\1|'`
+    v=`echo $e | sed 's/^\w\+=//'`
+    if [ -f "$v" ]; then
+        eval "export $n=\`cat \$v\`"
+    fi
+done

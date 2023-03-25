@@ -1,0 +1,10 @@
+FROM openjdk:8-alpine
+
+ENV TZ=Asia/Shanghai LANG=C.UTF-8
+
+RUN mkdir -m 775 /docker-entrypoint.d
+COPY --chmod=775 ./docker-entrypoint.sh /
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+COPY --chmod=775 ./docker-entrypoint.d/ /docker-entrypoint.d/
+
+CMD [ "sh" ]

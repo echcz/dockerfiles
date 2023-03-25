@@ -1,0 +1,12 @@
+FROM debian:latest
+
+ENV TZ=Asia/Shanghai LANG=C.UTF-8
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+&& sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
+
+RUN mkdir -m 775 /docker-entrypoint.d
+COPY --chmod=775 ./docker-entrypoint.sh /
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+COPY --chmod=775 ./docker-entrypoint.d/ /docker-entrypoint.d/
+
+CMD [ "bash" ]

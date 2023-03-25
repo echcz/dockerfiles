@@ -1,0 +1,5 @@
+FROM nginx:alpine
+
+ENV TZ=Asia/Shanghai LANG=C.UTF-8
+
+COPY --chmod=775 ./docker-entrypoint.d/ /docker-entrypoint.d/
